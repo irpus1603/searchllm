@@ -27,7 +27,7 @@ def get_user_memory(user_id: str):
         user_memory[user_id] = ConversationBufferMemory(return_messages=True)
 
     if len(user_memory[user_id].chat_memory.messages) > 1:
-        user_memory[user_id].chat_memory.messages = user_memory[user_id].chat_memory.messages[-1:]
+        user_memory[user_id].chat_memory.messages = user_memory[user_id].chat_memory.messages[0]
     return user_memory[user_id]
 
 @router.post("/sahabat/chat")

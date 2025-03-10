@@ -13,7 +13,7 @@ router = APIRouter()
 try:
     model, tokenizer = load("mlx-community/Mistral-7B-Instruct-v0.3-4bit")
     prompt_cache = make_prompt_cache(model)
-    memory = ConversationBufferMemory(return_messages=True)
+    memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
 except Exception as e:
     raise RuntimeError(f"Error initializing Mistral {e}")
 

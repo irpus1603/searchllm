@@ -23,7 +23,7 @@ LLM_API_URL = "http://127.0.0.1:8000/api/sahabat/chat"
 
 # Define token limits
 MAX_TOKENS = 7000  # LLM API token limit
-MAX_RETRIEVAL_TOKENS = 5000  # Limit document retrieval to 5000 tokens
+MAX_RETRIEVAL_TOKENS = 2000  # Limit document retrieval to 5000 tokens
 TOKEN_BUFFER = 500  # Buffer space to prevent overflow
 
 # Initialize tokenizer
@@ -32,7 +32,7 @@ tokenizer = tiktoken.get_encoding("cl100k_base")  # OpenAI tokenizer
 
 class ChatRequest(BaseModel):
     user_input: str
-    n_results: int = 6  # Retrieve more documents for better accuracy
+    n_results: int = 3  # Retrieve more documents for better accuracy
 
 
 def count_tokens(text: str) -> int:
@@ -159,7 +159,7 @@ async def rag_chat(request: ChatRequest):
 
         async with httpx.AsyncClient() as client:
             response = await client.post(
-                "http://127.0.0.1:8000/api/sahabat/chat",
+                LLM_API_URL,
                 json=payload,
                 timeout=200
             )
@@ -174,7 +174,7 @@ async def rag_chat(request: ChatRequest):
         response_data = response.json()
         ai_response_text = response_data.get("assistant", "Error: No response from AI.")
 
-        return {"ai_response": ai_response_text}
+        return {"assistant": ai_response_text}
 
     except Exception as e:
         print("🚨 ERROR in /v2/rag_chat/:", str(e))  # ✅ Debugging log
