@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+google-generativeai
+transformers
+torch
+langchain
+langgraph
+python-decouple
+langchain-google-genai
+sentence-transformers
+chromadb
+gradio
+tf_keras
+python-docx
+pymupdf
+langchain-community
